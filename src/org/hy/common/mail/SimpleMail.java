@@ -43,6 +43,7 @@ import org.hy.common.Help;
  *           V2.0  2015-11-30  添加接收邮件功能
  *           V2.1  2016-07-29  修正：当有多个发送者，发送多个邮件时，会出现验证不通过的问题。
  *                             将Session.getDefaultInstance()方法改为Session.getInstance()的解决。
+ *           v2.2  2018-04-04  发送邮件功能添加抄送者们、暗送者们的配置属性
  */
 public final class SimpleMail
 {    
@@ -76,6 +77,14 @@ public final class SimpleMail
             
             v_MailMessage.setFrom(      i_Owner.getEmailAddress());
             v_MailMessage.setRecipients(Message.RecipientType.TO ,(Address [])i_SendInfo.getEmailAddressList());
+            if ( !Help.isNull(i_SendInfo.getEmailCCAddressList()) )
+            {
+                v_MailMessage.setRecipients(Message.RecipientType.CC  ,(Address [])i_SendInfo.getEmailCCAddressList());
+            }
+            if ( !Help.isNull(i_SendInfo.getEmailBCCAddressList()) )
+            {
+                v_MailMessage.setRecipients(Message.RecipientType.BCC ,(Address [])i_SendInfo.getEmailBCCAddressList());
+            }
             v_MailMessage.setSubject(   i_SendInfo.getSubject());
             v_MailMessage.setText(      i_SendInfo.getContent());
             v_MailMessage.setSentDate(  new Date());
@@ -131,6 +140,14 @@ public final class SimpleMail
 
             v_MailMessage.setFrom(i_Owner.getEmailAddress());
             v_MailMessage.setRecipients(Message.RecipientType.TO ,(Address [])i_SendInfo.getEmailAddressList());
+            if ( !Help.isNull(i_SendInfo.getEmailCCAddressList()) )
+            {
+                v_MailMessage.setRecipients(Message.RecipientType.CC  ,(Address [])i_SendInfo.getEmailCCAddressList());
+            }
+            if ( !Help.isNull(i_SendInfo.getEmailBCCAddressList()) )
+            {
+                v_MailMessage.setRecipients(Message.RecipientType.BCC ,(Address [])i_SendInfo.getEmailBCCAddressList());
+            }
             v_MailMessage.setSubject(i_SendInfo.getSubject());
             v_MailMessage.setSentDate(new Date());
             

@@ -15,12 +15,19 @@ import org.hy.common.Help;
  *
  * @author   ZhengWei(HY)
  * @version  V1.0  2013-07-22
+ *           V2.0  2018-04-04  添加：抄送者们、暗送者们的功能
  */
 public class MailSendInfo
 {
     
     /** 邮件接收者的地址对象 */
     private List<InternetAddress>  emailAddressList;
+    
+    /** 邮件抄送者的地址对象  */
+    private List<InternetAddress>  emailCCAddressList;
+    
+    /** 邮件密送者的地址对象  */
+    private List<InternetAddress>  emailBCCAddressList;
     
     /** 邮件主题 */
     private String                 subject;
@@ -35,7 +42,9 @@ public class MailSendInfo
     
     public MailSendInfo()
     {
-        this.emailAddressList = new ArrayList<InternetAddress>();
+        this.emailAddressList    = new ArrayList<InternetAddress>();
+        this.emailCCAddressList  = new ArrayList<InternetAddress>();
+        this.emailBCCAddressList = new ArrayList<InternetAddress>();
     }
 
 
@@ -152,6 +161,20 @@ public class MailSendInfo
     
     
     
+    public void setEmailCC(String i_Email)
+    {
+        this.addEmailCC(i_Email);
+    }
+    
+    
+    
+    public void setEmailBCC(String i_Email)
+    {
+        this.addEmailBCC(i_Email);
+    }
+    
+    
+    
     public synchronized void addEmail(String i_EMail)
     {
         try
@@ -166,23 +189,60 @@ public class MailSendInfo
     
     
     
+    public synchronized void addEmailCC(String i_EMail)
+    {
+        try
+        {
+            this.emailCCAddressList.add(new InternetAddress(i_EMail));
+        }
+        catch (Exception exce)
+        {
+            exce.printStackTrace();
+        }
+    }
+    
+    
+    
+    public synchronized void addEmailBCC(String i_EMail)
+    {
+        try
+        {
+            this.emailBCCAddressList.add(new InternetAddress(i_EMail));
+        }
+        catch (Exception exce)
+        {
+            exce.printStackTrace();
+        }
+    }
+    
+    
+    
     public InternetAddress [] getEmailAddressList()
     {
-        InternetAddress [] v_Arr = new InternetAddress[this.emailAddressList.size()];
-        
-        for (int i=0; i<this.emailAddressList.size(); i++)
-        {
-            v_Arr[i] = this.emailAddressList.get(i);
-        }
-        
-        return v_Arr;
+        return this.emailAddressList.toArray(new InternetAddress[]{});
+    }
+    
+    
+    
+    public InternetAddress [] getEmailCCAddressList()
+    {
+        return this.emailCCAddressList.toArray(new InternetAddress[]{});
+    }
+    
+    
+    
+    public InternetAddress [] getEmailBCCAddressList()
+    {
+        return this.emailBCCAddressList.toArray(new InternetAddress[]{});
     }
     
     
     
     public synchronized void clearEmail()
     {
-        this.emailAddressList.clear();
+        this.emailAddressList   .clear();
+        this.emailCCAddressList .clear();
+        this.emailBCCAddressList.clear();
     }
     
     
