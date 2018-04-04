@@ -175,6 +175,36 @@ public class MailSendInfo
     
     
     
+    public synchronized void addEmail(String [] i_EMail)
+    {
+        for (String v_EMail : i_EMail)
+        {
+            this.addEmail(v_EMail);
+        }
+    }
+    
+    
+    
+    public synchronized void addEmailCC(String [] i_EMail)
+    {
+        for (String v_EMail : i_EMail)
+        {
+            this.addEmailCC(v_EMail);
+        }
+    }
+    
+    
+    
+    public synchronized void addEmailBCC(String [] i_EMail)
+    {
+        for (String v_EMail : i_EMail)
+        {
+            this.addEmailBCC(v_EMail);
+        }
+    }
+    
+    
+    
     public synchronized void addEmail(String i_EMail)
     {
         try
