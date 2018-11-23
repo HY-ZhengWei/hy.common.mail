@@ -6,6 +6,7 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.URLName;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeUtility;
 
 import org.hy.common.Help;
 
@@ -21,6 +22,7 @@ import org.hy.common.Help;
  *           V2.0  2016-07-28  添加：支持SSL验证
  *                             添加：实现 Comparable 等比较方法
  *                             修正：实现发送者（或接收者）属性参数只生成一只，不用重复生成
+ *           V3.0  2018-11-23  添加：发件人昵称的功能（建议人：杨东）
  */
 public class MailOwnerInfo extends Authenticator implements java.lang.Comparable<MailOwnerInfo>
 {
@@ -43,6 +45,9 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
     /** 接收邮件的协议 */
     private String                 reciveProtocol;
     
+    /** 邮件发件人的昵称 */
+    private String                 nickName;
+    
     /** 登陆邮件发送服务器的用户名 */
     private String                 userName;
 
@@ -60,6 +65,9 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
     
     /** 是否需求SSL验证 */
     private boolean                isValidateSSL;
+    
+    /** 邮件EMail地址（原始的邮件地址，未添加昵称等信息的纯邮件地址） */
+    private String                 email;
     
     /** 邮件EMail地址对象 */
     private InternetAddress        emailAddress;
@@ -228,9 +236,9 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
 
 
 
-    public String getEmail()
+    public synchronized String getEmail()
     {
-        return this.emailAddress.getAddress();
+        return this.email;
     }
     
     
@@ -242,11 +250,29 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
 
 
     
-    public void setEmail(String i_Email)
+    public synchronized void setEmail(String i_Email)
     {
+        this.email = i_Email;
         try
         {
-            this.emailAddress = new InternetAddress(i_Email);
+            if ( Help.isNull(this.nickName) ) 
+            {
+                this.emailAddress = new InternetAddress(this.email);
+            }
+            else
+            {
+                String v_NickName = this.nickName;  
+                try 
+                {  
+                    v_NickName = MimeUtility.encodeText(v_NickName);  
+                } 
+                catch (Exception exce) 
+                {  
+                    exce.printStackTrace();  
+                }
+                
+                this.emailAddress = new InternetAddress(v_NickName + " <" + this.email + ">");
+            }
             
             if ( this.userName == null )
             {
@@ -261,27 +287,43 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
 
 
     
+    /**
+     * 获取：是否需要身份验证
+     */
     public boolean isValidate()
     {
         return isValidate;
     }
 
 
-
+    
+    /**
+     * 设置：是否需要身份验证
+     * 
+     * @param isValidate 
+     */
     public void setValidate(boolean isValidate)
     {
         this.isValidate = isValidate;
     }
 
 
-    
+
+    /**
+     * 获取：登陆邮件发送服务器的密码
+     */
     public String getPassword()
     {
         return password;
     }
 
 
-
+    
+    /**
+     * 设置：登陆邮件发送服务器的密码
+     * 
+     * @param password 
+     */
     public void setPassword(String password)
     {
         this.password           = password;
@@ -289,7 +331,37 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
     }
 
 
+
+    /**
+     * 获取：邮件发件人的昵称
+     */
+    public String getNickName()
+    {
+        return nickName;
+    }
+
+
     
+    /**
+     * 设置：邮件发件人的昵称
+     * 
+     * @param nickName 
+     */
+    public void setNickName(String nickName)
+    {
+        this.nickName = nickName;
+        
+        if ( !Help.isNull(this.email) )
+        {
+            this.setEmail(this.email);
+        }
+    }
+
+
+
+    /**
+     * 获取：登陆邮件发送服务器的用户名
+     */
     public String getUserName()
     {
         return userName;
@@ -297,6 +369,11 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
 
 
     
+    /**
+     * 设置：登陆邮件发送服务器的用户名
+     * 
+     * @param nickName 
+     */
     public void setUserName(String userName)
     {
         this.userName           = userName;
@@ -309,7 +386,10 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
     }
 
 
-
+    
+    /**
+     * 获取：发送邮件的服务器的IP。如：smtp.163.com
+     */
     public String getSendHost()
     {
         return sendHost;
@@ -317,27 +397,40 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
 
 
     
-    public void setSendHost(String i_SendHost)
+    /**
+     * 设置：发送邮件的服务器的IP。如：smtp.163.com
+     * 
+     * @param sendHost 
+     */
+    public void setSendHost(String sendHost)
     {
-        this.sendHost = i_SendHost;
+        this.sendHost = sendHost;
     }
 
 
-    
+
+    /**
+     * 获取：发送邮件的服务器的端口
+     */
     public int getSendPort()
     {
-        return this.sendPort;
+        return sendPort;
     }
 
 
     
-    public void setSendPort(int i_SendPort)
+    /**
+     * 设置：发送邮件的服务器的端口
+     * 
+     * @param sendPort 
+     */
+    public void setSendPort(int sendPort)
     {
-        this.sendPort = i_SendPort;
+        this.sendPort = sendPort;
     }
-    
-    
-    
+
+
+
     /**
      * 获取：发送邮件的协议
      */

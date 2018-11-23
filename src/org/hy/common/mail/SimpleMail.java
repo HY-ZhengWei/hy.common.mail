@@ -75,7 +75,7 @@ public final class SimpleMail
         {
             Message v_MailMessage = new MimeMessage(v_SendMailSession);
             
-            v_MailMessage.setFrom(      i_Owner.getEmailAddress());
+            v_MailMessage.setFrom(i_Owner.getEmailAddress());
             v_MailMessage.setRecipients(Message.RecipientType.TO ,(Address [])i_SendInfo.getEmailAddressList());
             if ( !Help.isNull(i_SendInfo.getEmailCCAddressList()) )
             {
