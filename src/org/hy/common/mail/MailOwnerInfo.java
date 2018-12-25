@@ -23,6 +23,7 @@ import org.hy.common.Help;
  *                             添加：实现 Comparable 等比较方法
  *                             修正：实现发送者（或接收者）属性参数只生成一只，不用重复生成
  *           V3.0  2018-11-23  添加：发件人昵称的功能（建议人：杨东）
+ *           V4.0  2018-12-25  优化：通过代理服务发送邮件的功能
  */
 public class MailOwnerInfo extends Authenticator implements java.lang.Comparable<MailOwnerInfo>
 {
@@ -129,23 +130,33 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
     
             if ( this.isProxySet )
             {
+                System.getProperties().put("proxySet", true); 
+                System.getProperties().put("http.proxyHost", this.proxyHost); 
+                System.getProperties().put("http.proxyPort", this.proxyPort); 
+                System.getProperties().put("socksProxySet", true); 
+                System.getProperties().put("socksProxyHost", this.proxyHost); 
+                System.getProperties().put("socksProxyPort", this.proxyPort);
+                System.getProperties().put("proxyHost", this.proxyHost); 
+                System.getProperties().put("proxyPort", this.proxyPort); 
+                
+                /*
+                this.sendProperties.put("proxySet", true); 
+                this.sendProperties.put("http.proxyHost", this.proxyHost); 
+                this.sendProperties.put("http.proxyPort", this.proxyPort); 
+                this.sendProperties.put("socksProxySet", true); 
+                this.sendProperties.put("socksProxyHost", this.proxyHost); 
+                this.sendProperties.put("socksProxyPort", this.proxyPort);
+                this.sendProperties.put("proxyHost", this.proxyHost); 
+                this.sendProperties.put("proxyPort", this.proxyPort);
+                */ 
+                
+                /*
                 this.sendProperties.put("mail.smtp.socks.host" ,this.proxyHost);
                 this.sendProperties.put("mail.smtp.socks.port" ,String.valueOf(this.proxyPort));
                 
-    //            v_Props.put("mail.smtp.auth.login.disable" ,"true");
-    //            v_Props.put("mail.smtp.auth.plain.disable" ,"true");
-                
-    //            Properties v_SYS_Props = System.getProperties();
-    //            v_SYS_Props.setProperty("proxySet"       ,"true");
-    //            
-    //            v_SYS_Props.setProperty("ProxyHost"      ,this.proxyHost);
-    //            v_SYS_Props.setProperty("ProxyPort"      ,String.valueOf(this.proxyPort));
-    //            
-    //            v_SYS_Props.setProperty("http.proxyHost" ,this.proxyHost);
-    //            v_SYS_Props.setProperty("http.proxyPort" ,String.valueOf(this.proxyPort));
-                
-    //            v_SYS_Props.setProperty("socksProxyHost" ,this.proxyHost);
-    //            v_SYS_Props.setProperty("socksProxyPort" ,String.valueOf(this.proxyPort));
+                this.sendProperties.put("mail.smtp.auth.login.disable" ,"true");
+                this.sendProperties.put("mail.smtp.auth.plain.disable" ,"true");
+                */
             }
             
             this.sendProperties.put("mail.smtp.host"             ,this.sendHost);
@@ -169,7 +180,7 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
             
             // 有了这句便可以在发送邮件的过程中在console处显示过程信息，供调试使
             // 用（你可以在控制台（console)上看到发送邮件的过程）
-            this.sendProperties.put("mail.debug"                 ,"false");
+            this.sendProperties.put("mail.debug" ,"false");
         
         }
         

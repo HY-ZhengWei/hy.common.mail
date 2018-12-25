@@ -1,4 +1,4 @@
-Manifest-Version: 2.0.5
+Manifest-Version: 2.0.6
 Created-By: HY.ZhengWei@qq.com  2013
-Specification-Version: 2.0.5  2018-11-23
+Specification-Version: 2.0.6  2018-12-25
 SourceCode: https://github.com/HY-ZhengWei/hy.common.mail
