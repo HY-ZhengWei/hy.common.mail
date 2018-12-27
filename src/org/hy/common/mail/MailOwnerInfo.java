@@ -23,7 +23,7 @@ import org.hy.common.Help;
  *                             添加：实现 Comparable 等比较方法
  *                             修正：实现发送者（或接收者）属性参数只生成一只，不用重复生成
  *           V3.0  2018-11-23  添加：发件人昵称的功能（建议人：杨东）
- *           V4.0  2018-12-25  优化：通过代理服务发送邮件的功能
+ *           V4.0  2018-12-27  优化：通过代理服务发送邮件的功能
  */
 public class MailOwnerInfo extends Authenticator implements java.lang.Comparable<MailOwnerInfo>
 {
@@ -130,16 +130,13 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
     
             if ( this.isProxySet )
             {
-                System.getProperties().put("proxySet", true); 
-                System.getProperties().put("http.proxyHost", this.proxyHost); 
-                System.getProperties().put("http.proxyPort", this.proxyPort); 
-                System.getProperties().put("socksProxySet", true); 
-                System.getProperties().put("socksProxyHost", this.proxyHost); 
-                System.getProperties().put("socksProxyPort", this.proxyPort);
-                System.getProperties().put("proxyHost", this.proxyHost); 
-                System.getProperties().put("proxyPort", this.proxyPort); 
+                // 属性参数来源详见：SocketFetcher.createSocket()。注：SocketFetcher类中还有更多其它属性参数
+                // com.sun.mail.util.SocketFetcher
+                this.sendProperties.put("mail.smtp.proxy.host" ,this.proxyHost);
+                this.sendProperties.put("mail.smtp.proxy.port" ,String.valueOf(this.proxyPort));
                 
                 /*
+                // 下面的设置是不生效的
                 this.sendProperties.put("proxySet", true); 
                 this.sendProperties.put("http.proxyHost", this.proxyHost); 
                 this.sendProperties.put("http.proxyPort", this.proxyPort); 
@@ -151,9 +148,19 @@ public class MailOwnerInfo extends Authenticator implements java.lang.Comparable
                 */ 
                 
                 /*
-                this.sendProperties.put("mail.smtp.socks.host" ,this.proxyHost);
-                this.sendProperties.put("mail.smtp.socks.port" ,String.valueOf(this.proxyPort));
+                // 下面为的设置可以生效，可通过代理发送。这也是网上很人文章说的方案
+                // 但也会改变整个Java运行环境，不建议采用
+                System.getProperties().put("proxySet", true); 
+                System.getProperties().put("http.proxyHost", this.proxyHost); 
+                System.getProperties().put("http.proxyPort", this.proxyPort); 
+                System.getProperties().put("socksProxySet", true); 
+                System.getProperties().put("socksProxyHost", this.proxyHost); 
+                System.getProperties().put("socksProxyPort", this.proxyPort);
+                System.getProperties().put("proxyHost", this.proxyHost); 
+                System.getProperties().put("proxyPort", this.proxyPort); 
+                */
                 
+                /*
                 this.sendProperties.put("mail.smtp.auth.login.disable" ,"true");
                 this.sendProperties.put("mail.smtp.auth.plain.disable" ,"true");
                 */
