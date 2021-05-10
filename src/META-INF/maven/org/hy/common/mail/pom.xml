@@ -8,7 +8,8 @@
   <packaging>jar</packaging>
 
   <name>hy.common.mail</name>
-  <url>https://github.com/HY-ZhengWei/hy.common.mail</url>   <!-- https://gitee.com/HY-ZhengWei/hy.common.mail -->
+  <url>https://github.com/HY-ZhengWei/hy.common.mail</url>
+  <!-- https://gitee.com/HY-ZhengWei/hy.common.mail -->
   
   <developers>
     <developer>
