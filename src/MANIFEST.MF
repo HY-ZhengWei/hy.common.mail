@@ -1,5 +1,5 @@
 Manifest-Version: 2.0.7
 Created-By: HY.ZhengWei@qq.com  2013
 Specification-Version: 2.0.7  2021-05-10
-SourceCode1: https://github.com/HY-ZhengWei/hy.common.mail
-SourceCode2: https://gitee.com/HY-ZhengWei/hy.common.mail
+SourceCode: https://github.com/HY-ZhengWei/hy.common.mail
+SourceCodeChina: https://gitee.com/HY-ZhengWei/hy.common.mail
