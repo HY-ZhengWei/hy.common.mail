@@ -6,7 +6,7 @@
 
     <groupId>org</groupId>
     <artifactId>hy.common.mail</artifactId>
-    <version>2.0.8</version>
+    <version>2.0.9</version>
     <packaging>jar</packaging>
 
     <name>cn.openapis.hy.common.mail</name>
@@ -54,14 +54,14 @@
         <dependency>
             <groupId>cn.openapis</groupId>
             <artifactId>hy.common.base</artifactId>
-            <version>1.0.162</version>
+            <version>1.0.164</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>cn.openapis</groupId>
             <artifactId>hy.common.xjava</artifactId>
-            <version>4.1.7</version>
+            <version>4.2.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -80,7 +80,7 @@
     </dependencies>
 
     <scm>
-        <tag>main</tag>
+        <tag>master</tag>
         <url>git@github.com:HY-ZhengWei/hy.common.mail.git</url>
         <connection>git@github.com:HY-ZhengWei/hy.common.mail.git</connection>
         <developerConnection>git@github.com:HY-ZhengWei/hy.common.mail.git</developerConnection>
@@ -90,7 +90,13 @@
         <resources>
             <resource>
                 <directory>src/main/java</directory>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.html</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.ini</include>
+                </includes>
             </resource>
 
             <resource>
