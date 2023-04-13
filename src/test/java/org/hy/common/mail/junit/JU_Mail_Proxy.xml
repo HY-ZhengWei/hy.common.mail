@@ -2,31 +2,46 @@
 
 <config>
 
-	<import name="xconfig"         class="java.util.ArrayList" />
-	<import name="mail"            class="org.hy.common.mail.MailOwnerInfo" />
-	
-	
-	
-	<!-- 邮件配置信息 -->
-	<xconfig>
-		
-		<mail id="MailSender">
-		
-			<!-- 发送者的邮件配置 -->
-			<sendHost>smtp.qiye.163.com</sendHost>
-			<sendPort>465</sendPort>
-			
-			<!-- 安全验证方面的配置 -->
-			<validate>true</validate>
-			<validateSSL>true</validateSSL>
-			<userName>HY.ZhengWei@qq.com</userName>
-			<password>12345678</password>
-			
-			<!-- 代理的相关配置（可选的） -->
-			<proxyHost>192.168.1.187</proxyHost>    <!-- 代理IP -->
-			<proxyPort>1808</proxyPort>             <!-- 代理端口 -->
-		</mail>
-		
-	</xconfig>
-	
+    <import name="xconfig"         class="java.util.ArrayList" />
+    <import name="mail"            class="org.hy.common.mail.MailOwnerInfo" />
+    
+    
+    
+    <!-- 邮件配置信息 -->
+    <xconfig>
+        
+        <mail id="MailSender">
+        
+            <!-- 发送者的邮件配置 -->
+            <sendHost>smtp.qiye.163.com</sendHost>
+            <sendPort>465</sendPort>
+            
+            <!-- 安全验证方面的配置 -->
+            <validate>true</validate>
+            <validateSSL>true</validateSSL>
+            <userName>HY.ZhengWei@qq.com</userName>
+            <password>12345678</password>
+            
+            <!-- 代理的相关配置（可选的） -->
+            <proxyHost>192.168.1.187</proxyHost>    <!-- 代理IP -->
+            <proxyPort>1808</proxyPort>             <!-- 代理端口 -->
+        </mail>
+        
+        
+        
+        <mail id="MailSender">
+        
+            <!-- 发送者的邮件配置 -->
+            <sendHost>smtp.apollopump.com</sendHost>
+            <sendPort>465</sendPort>
+            
+            <!-- 安全验证方面的配置 -->
+            <validate>true</validate>
+            <validateSSL>true</validateSSL>
+            <userName>aplmes@apollopump.com</userName>
+            <password>12345678</password>
+        </mail>
+        
+    </xconfig>
+    
 </config>
