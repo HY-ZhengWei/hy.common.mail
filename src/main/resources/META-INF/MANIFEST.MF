@@ -3,4 +3,4 @@ Created-By: HY.ZhengWei@qq.com  2013
 Specification-Version: 2.0.9  2023-01-11
 SourceCode: https://github.com/HY-ZhengWei/hy.common.mail
 SourceCodeChina: https://gitee.com/HY-ZhengWei/hy.common.mail
-Build-JDK: 1.8
+Build-JDK: OpenJDK 1.8
