@@ -27,3 +27,5 @@ copy hy.common.mail-sources.jar ..\..\..
 del /Q hy.common.mail-sources.jar
 rd /s/q META-INF
 cd ..\..\..
+
+pause
