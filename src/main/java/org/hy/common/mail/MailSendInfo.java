@@ -3,7 +3,7 @@ package org.hy.common.mail;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.mail.internet.InternetAddress;
+import jakarta.mail.internet.InternetAddress;
 import org.hy.common.Help;
 
 
